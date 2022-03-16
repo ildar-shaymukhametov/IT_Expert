@@ -1,16 +1,10 @@
-﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using IT_Expert.Models;
-
-namespace IT_Expert.Controllers;
+using Microsoft.EntityFrameworkCore;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController()
     {
-        _logger = logger;
     }
 
     public IActionResult Index()
