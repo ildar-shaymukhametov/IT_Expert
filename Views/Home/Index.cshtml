@@ -1,8 +1,48 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<ItemViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form id="form" method="post" action="/Home/Create">
+    <button type="button" id="addItemButton">Add item</button>
+    <ul id="inputs">
+        <li>
+            <input type="number" placeholder="code" name="[0].code" required />
+            <input placeholder="value" name="[0].value" required />
+        </li>
+    </ul>
+    <button id="submitItemsButton">Submit</button>
+</form>
+
+<ul id="list">
+    @foreach (var item in Model)
+    {
+        <li>@item.Code: @item.Value</li>
+    }
+</ul>
+
+<script>
+    document.getElementById("addItemButton").addEventListener("click", addItem);
+
+    var inputsElement = document.getElementById("inputs");
+
+    function addItem() {
+        var div = document.createElement("li");
+        var inputIndex = inputsElement.querySelectorAll("input").length / 2;
+
+        var codeInput = createInput("code", "number", inputIndex);
+        div.appendChild(codeInput);
+
+        var valueInput = createInput("value", "text", inputIndex);
+        div.appendChild(valueInput);
+
+        inputsElement.appendChild(div);
+    }
+
+    function createInput(name, type, index) {
+        var result = document.createElement("input");
+        result.placeholder = name;
+        result.name = `[${index}].${name}`;
+        result.type = type;
+        result.required = true;
+
+        return result;
+    }
+</script>
