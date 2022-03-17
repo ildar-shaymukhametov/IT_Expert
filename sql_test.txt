@@ -1,0 +1,6 @@
+SELECT name, count(*) FROM clients
+inner join contacts on clients.id = contacts.clientId
+group by contacts.clientId
+
+SELECT name, (select count(*) from contacts where contacts.clientId = clients.id) as contactsCount FROM clients
+where contactsCount > 2
